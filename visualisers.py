@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 import knightsTour as KT
 import numpy as np
 import time
