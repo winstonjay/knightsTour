@@ -132,7 +132,8 @@ def subtract(tuple1, tuple2):
 if __name__ == '__main__':
     import sys
     size = int(sys.argv[1]) if len(sys.argv) == 2 else 8
-    tour = knightsTour((0,1), size)
+    start = (int(sys.argv[2]), int(sys.argv[3])) if len(sys.argv) == 4 else (0, 0)
+    tour = knightsTour(start, size)
     print(tour)
 
 
