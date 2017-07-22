@@ -33,10 +33,11 @@ def plot_board(s, filter_fn, title):
     ax.axis('image')
     plt.show()
 
-
-# tour = KT.knightsTour((0,1), size)
-# print tour
-# display_tour(tour, size)
+def chessName(square):
+    """Converts vector co-ordinates to chess square names:
+    squareName(0, 0) -> "a1"; squareName(7, 7) -> "h8"; """
+    x, y = square
+    return (chr(x + 97) + str(y+1))
 
 
 
