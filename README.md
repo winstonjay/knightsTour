@@ -10,3 +10,6 @@ is open.
 
 For more info: https://en.wikipedia.org/wiki/Knight%27s_tour
 
+## About this Implementation
+
+For more info about the implementation, see analysis in the [jupyter notebook](https://github.com/winstonjay/knightsTour/blob/master/analysis.ipynb). Its a bit of a mess right now but might have some helpful visualisations. The code its self is kinda self documenting also.
