@@ -20,34 +20,30 @@ const Vector Deltas[DeltaN] = {
 
 typedef struct { Vector nodes[DeltaN]; short length; } NodeList;
 
-const int BoardN = 8;
-const int BoardNxN = BoardN * BoardN;
+// const int BoardN = 8;
+// const int BoardNxN = BoardN * BoardN;
 
 typedef struct {
-    Vector path[BoardNxN];
+    Vector *path;
+    int BoardN;
     int pathLength;
     bool success;
 } Path;
 /* Functions */
 
-Path KnightsTour(Vector start); /* The daddy function */
-
+Path KnightsTour(Vector start, int boardN, Path tour); /* The daddy function */
 Vector SelectedNode(NodeList nodelist, const Path *tour);
-
 NodeList NodeSuccessors(Vector node, const Path *Path);
-
 bool NodeInPath(Vector node, const Path *Path);
+int EuclideanDistance(Vector node, int BoardN);
 
-int EuclideanDistance(Vector node);
 
-Path KnightsTour(Vector start)
+Path KnightsTour(Vector start, int BoardN, Path tour)
 {
     /* Takes start co-ordinates and trys to find a valid
      tour and return it else fails*/
+    int BoardNxN = BoardN * BoardN; // Set number of square in the board.
     Vector node = start;
-    Path tour;
-    tour.pathLength = 0;
-    tour.success = false;
     while (!tour.success)
     {
         tour.path[tour.pathLength] = node;
@@ -86,7 +82,7 @@ Vector SelectedNode(NodeList nodelist, const Path *tour)
         if (len <= bestNode)
         {
             if (len == bestNode){
-                int eucDist = EuclideanDistance(nodelist.nodes[n]);
+                int eucDist = EuclideanDistance(nodelist.nodes[n], tour->BoardN);
                 if (eucDist > currentFurthest)
                 {
                     bestNode = len;
@@ -112,7 +108,7 @@ NodeList NodeSuccessors(Vector node, const Path *Path)
     for (int i = 0; i < DeltaN; i++)
     {
         Vector N = {node.x + Deltas[i].x, node.y + Deltas[i].y};
-        if ((N.x <  BoardN) && (N.y <  BoardN) &&
+        if ((N.x <  Path->BoardN) && (N.y <  Path->BoardN) &&
             (N.x >= 0) && (N.y >= 0) && !NodeInPath(N, Path))
         {
             successors.nodes[count] = N;
@@ -136,7 +132,7 @@ bool NodeInPath(Vector node, const Path *Path)
     return false;
 }
 
-int EuclideanDistance(Vector node)
+int EuclideanDistance(Vector node, int BoardN)
 {
     /* returns approx eucledian distance^2 from the center of the board
      basically the hypotenuse of a triangle */
