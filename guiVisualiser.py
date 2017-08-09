@@ -13,6 +13,8 @@ screen = pygame.display.set_mode([W+80, H+200])
 black = pygame.color.Color('#9fa8da')
 white = pygame.color.Color('#fafafa')
 grey = pygame.color.Color('#ffffff')
+btnColor = pygame.color.Color('#FFC107')
+lightbtnColor = pygame.color.Color('#FF5722')
 clock = pygame.time.Clock()
 count = 0
 done = False
@@ -39,7 +41,7 @@ def drawColorOverlay(position, sY, sX):
 
 
 def drawBoard(tourd, size):
-    if tour:
+    if tour and (playing or not tourd):
         tourd.append(tour.pop(0))
     for x in range(size):
         drawNotation(numbers, x)
@@ -90,7 +92,6 @@ def printTour(tour, cindex):
     displayText = ""
     ttext = []
     for i, x in enumerate(tourText):
-
         if i == cindex-1:
             displayText += "[ " + x + " ], "
         else:
@@ -104,12 +105,25 @@ def printTour(tour, cindex):
     screen.blit(ttext, (0 + 40, offset + lineheight * lineNum))
 
 
+def drawBtn():
+    global playing
+    click = pygame.mouse.get_pressed()
+    p1, p2, s1, s2 = 530, 600, sqrW, 40
+    mouse = pygame.mouse.get_pos()
+    mx, my = mouse
+    if p1 < mx < p1+s1 and p2 < my < p2+s2:
+        bcolor = lightbtnColor
+        if click[0] == 1:
+            playing = True if not playing else False
+    else:
+        bcolor = btnColor
+    pygame.draw.rect(screen, bcolor, (p1, p2, s1, s2))
 
 if __name__ == '__main__':
 
     import sys
 
-    
+    playing = True
 
     start = (7,0)
     if len(sys.argv) >= 2:
@@ -142,6 +156,9 @@ if __name__ == '__main__':
         textsurface = myfont.render("Tour: %s" % Tcount, True, (33, 33, 33))
         screen.blit(textsurface, (0 + 40, H + 60))
         printTour(tourrep, len(tourd))
+
+        # drawBtn()
+
         if not tour:
             Tcount += 1
             tour = KT.knightsTour(tourd[-1], size)
