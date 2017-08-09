@@ -52,11 +52,11 @@ In both cases if you specify a position that is outside the range of the board y
 To play the squence press the `space` key. To pause the squence press the `space` key again.
 
 
-#### 8x8 Example
+### 8x8 Example
 
 ![knight gui](media/gui2.png)
 
-#### 32x32 Example
+### 32x32 Example
 
 ![knight gui](media/gui32.png)
 
