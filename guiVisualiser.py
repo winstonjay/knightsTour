@@ -20,7 +20,7 @@ done = False
 
 # scale(Surface, (width, height),)
 
-imageObject = pygame.image.load('knight.png')
+imageObject = pygame.image.load('media/knight.png')
 knightRect = imageObject.get_rect()
 
 
@@ -60,12 +60,12 @@ def drawBoard(tourd, size):
     return tourd
 
 
-letters = "abcdefgh"
-numbers = "87654321"
+letters = "abcdefghi"
+numbers = "123456789"
 
 def tupleToChess(position):
     x, y = position
-    return letters[y] + numbers[x]
+    return letters[y] + numbers[size-x-1]
 
 def drawNotation(charset, p):
 
@@ -109,11 +109,20 @@ if __name__ == '__main__':
 
     import sys
 
-    size = int(sys.argv[1]) if len(sys.argv) == 2 else 8
-    start = ((int(sys.argv[2]), int(sys.argv[3])) 
-             if len(sys.argv) == 4 else (0, 0))
+    
 
-    tour = KT.KnightsTour(start, size)
+    start = (7,0)
+    if len(sys.argv) >= 2:
+        aStrt = sys.argv[1]
+        if aStrt[0] in letters and aStrt[1] in numbers:
+            y = letters.index(aStrt[0])
+            x = numbers.index(aStrt[1])
+            start = (x,y)
+
+
+    size = int(sys.argv[2]) if len(sys.argv) == 3 else 8
+
+    tour = KT.knightsTour(start, size)
 
     sqrW, sqrH = W / size, H / size
 
@@ -135,7 +144,7 @@ if __name__ == '__main__':
         printTour(tourrep, len(tourd))
         if not tour:
             Tcount += 1
-            tour = KT.KnightsTour(tourd[-1], size)
+            tour = KT.knightsTour(tourd[-1], size)
             tourd = []
             tourrep = tour[:]
         pygame.display.flip()

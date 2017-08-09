@@ -13,8 +13,8 @@
 #include "knightsTour.h"
 
 
-int main()
-{
+int main() {
+    
     int BoardN = 6;
     int BoardNxN = BoardN * BoardN;
     Vector start = {0,0};

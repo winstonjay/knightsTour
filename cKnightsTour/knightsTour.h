@@ -38,8 +38,7 @@ bool NodeInPath(Vector node, const Path *Path);
 int EuclideanDistance(Vector node, int BoardN);
 
 
-Path KnightsTour(Vector start, int BoardN, Path tour)
-{
+Path KnightsTour(Vector start, int BoardN, Path tour) {
     /* Takes start co-ordinates and trys to find a valid
      tour and return it else fails*/
     int BoardNxN = BoardN * BoardN; // Set number of square in the board.
@@ -66,8 +65,7 @@ Path KnightsTour(Vector start, int BoardN, Path tour)
     return tour;
 }
 
-Vector SelectedNode(NodeList nodelist, const Path *tour)
-{
+Vector SelectedNode(NodeList nodelist, const Path *tour) {
     /* Following Warnsdoffs rule this function searches for the 
      node that has the least number of successor nodes then incase of a
      draw tries to tiebreak on distance from the center of the board
@@ -81,7 +79,7 @@ Vector SelectedNode(NodeList nodelist, const Path *tour)
         short len = NodeSuccessors(nodelist.nodes[n], tour).length;
         if (len <= bestNode)
         {
-            if (len == bestNode){
+            if (len == bestNode) {
                 int eucDist = EuclideanDistance(nodelist.nodes[n], tour->BoardN);
                 if (eucDist > currentFurthest)
                 {
@@ -100,8 +98,7 @@ Vector SelectedNode(NodeList nodelist, const Path *tour)
     return selectedNode;
 }
 
-NodeList NodeSuccessors(Vector node, const Path *Path)
-{
+NodeList NodeSuccessors(Vector node, const Path *Path) {
     /* Returns availible move nodes from the current possition. */
     NodeList successors;
     unsigned short count = 0;
@@ -119,8 +116,7 @@ NodeList NodeSuccessors(Vector node, const Path *Path)
     return successors;
 }
 
-bool NodeInPath(Vector node, const Path *Path)
-{
+bool NodeInPath(Vector node, const Path *Path) {
     /* Searches for a node a given Path and returns true if found else false */
     for (int i = 0; i < Path->pathLength; i++)
     {
@@ -132,8 +128,7 @@ bool NodeInPath(Vector node, const Path *Path)
     return false;
 }
 
-int EuclideanDistance(Vector node, int BoardN)
-{
+int EuclideanDistance(Vector node, int BoardN) {
     /* returns approx eucledian distance^2 from the center of the board
      basically the hypotenuse of a triangle */
     int center = BoardN - 1;
