@@ -4,26 +4,9 @@ import pygame
 
 import knightsTour as KT
 
-pygame.init()
-
-pygame.display.set_caption("Knights Tour")
-
-windowSize = H, W = [560, 560]
-screen = pygame.display.set_mode([W+80, H+200])
-black = pygame.color.Color('#9fa8da')
-white = pygame.color.Color('#fafafa')
-grey = pygame.color.Color('#ffffff')
-btnColor = pygame.color.Color('#FFC107')
-lightbtnColor = pygame.color.Color('#FF5722')
-clock = pygame.time.Clock()
-count = 0
-done = False
 
 
 # scale(Surface, (width, height),)
-
-imageObject = pygame.image.load('media/knight.png')
-knightRect = imageObject.get_rect()
 
 
 def drawKnight(position, sY, sX):
@@ -62,8 +45,10 @@ def drawBoard(tourd, size):
     return tourd
 
 
-letters = "abcdefghi"
-numbers = "123456789"
+letters = [chr(s + 97) for s in range(26)] + [chr(s + 65) for s in range(26)]
+numbers = [str(s) for s in range(1, 53)]
+
+
 
 def tupleToChess(position):
     x, y = position
@@ -96,7 +81,7 @@ def printTour(tour, cindex):
             displayText += "[ " + x + " ], "
         else:
             displayText += x + ",  "
-        if (i + 1) % 18 == 0:
+        if (i + 1) % 20 == 0:
             ttext = myfont3.render(displayText, True, (99, 99, 99))
             screen.blit(ttext, (0 + 40, offset + lineheight * lineNum))
             lineNum += 1
@@ -133,12 +118,48 @@ if __name__ == '__main__':
             x = numbers.index(aStrt[1])
             start = (x,y)
 
-
     size = int(sys.argv[2]) if len(sys.argv) == 3 else 8
 
     tour = KT.knightsTour(start, size)
 
+    if not tour:
+        print("Tour not found at start position %s" % sys.argv[1])
+        sys.exit()
+
+    willPrintTour = True if len(tour) <= 100 else False
+
+
+    pygame.init()
+
+    pygame.display.set_caption("Knights Tour")
+
+    windowSize = H, W = [620, 620]
+
+    if willPrintTour:
+        space = 200
+    else:
+        space = 100
+
+    screen = pygame.display.set_mode([W+80, H+space])
+    black = pygame.color.Color('#9fa8da')
+    white = pygame.color.Color('#fafafa')
+    grey = pygame.color.Color('#ffffff')
+    btnColor = pygame.color.Color('#FFC107')
+    lightbtnColor = pygame.color.Color('#FF5722')
+    clock = pygame.time.Clock()
+    count = 0
+    done = False
+
     sqrW, sqrH = W / size, H / size
+
+    imageObject = pygame.image.load('media/knight.png')
+
+    if size > 10:
+        imgX, imgY  = imageObject.get_size()
+        dif = 1 - abs(imgY - sqrH) / imgY
+        imageObject = pygame.transform.scale(imageObject, (int(imgX * dif), int(sqrH)))
+
+    knightRect = imageObject.get_rect()
 
     pygame.font.init()
     myfont = pygame.font.SysFont('Roboto', 30)
@@ -149,15 +170,16 @@ if __name__ == '__main__':
     tourd = []
     Tcount = 1
     tourrep = tour[:]
+
     while not done:  
         
         screen.fill(grey)
         tourd = drawBoard(tourd, size)
         textsurface = myfont.render("Tour: %s" % Tcount, True, (33, 33, 33))
         screen.blit(textsurface, (0 + 40, H + 60))
-        printTour(tourrep, len(tourd))
 
-        # drawBtn()
+        if willPrintTour:
+            printTour(tourrep, len(tourd))
 
         if not tour:
             Tcount += 1
@@ -166,8 +188,10 @@ if __name__ == '__main__':
             tourrep = tour[:]
         pygame.display.flip()
         for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                playing = False if playing else True
             if event.type == pygame.QUIT:
                 done = True
-        clock.tick(3)
+        clock.tick(4)
     pygame.quit()
 
