@@ -43,16 +43,23 @@ $ python guiVisualiser.py a4 8
 Here if no arguments are specified the board will default again to a 8x8 size and at position `a1`.
 Because of the design of the interface the board will not render a board bigger than 52x52. The layout design starts becoming squashed at around 32x32 but is still essentially works.
 
+In the gui visualiser once the program has completed its first tour it will start again from its finishing position.
+
+In both cases if you specify a position that is outside the range of the board you will get an assertion error.
+
 #### Gui Controls.
 
 To play the squence press the `space` key. To pause the squence press the `space` key again.
 
 
+#### 8x8 Example
+
 ![knight gui](media/gui2.png)
 
-In the gui visualiser once the program has completed its first tour it will start again from its finishing position.
+#### 32x32 Example
 
-In both cases if you specify a position that is outside the range of the board you will get an assertion error.
+![knight gui](media/gui32.png)
+
 
 
 ## About this Implementation
