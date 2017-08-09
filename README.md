@@ -43,7 +43,7 @@ $ python guiVisualiser.py a4 8
 Here if no arguments are specified the board will default again to a 8x8 size and at position `a1`.
 Because of the design of the interface the board will not render a board bigger than 9x9. This should be fixed in the future. 
 
-![knight gui](media/gui.png)
+![knight gui](media/gui2.png)
 
 In the gui visualiser once the program has completed its first tour it will start again from its finishing position.
 
