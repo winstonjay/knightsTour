@@ -15,7 +15,7 @@ is open.
 def knightsTour(start, size=8):
     """Takes tuple and integer as input; returns a vaild knights tour or fails 
     from a give start position on a n x n chessboard.
-    knightsTour((x,y), n) -> [(x,y), (x1,y1), (x2,y2), ...]"""
+    knightsTour((x,y), n) -> [(x,y), (x1,y1), (x2,y2), ...] | []"""
     knightsTour.size = size 
     goalState = size**2
     try: # check function is called with valid start position
