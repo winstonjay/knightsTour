@@ -1,41 +1,4 @@
-//
-//  knightsTour.h
-//  knightsTour
-//
-//  Created by Karl Sims on 12/07/2017.
-//  Copyright © 2017 Karl Sims. All rights reserved.
-//
-#ifndef knights_tour_h
-#define knights_tour_h
-
-typedef struct { signed char x; signed char y; } Vector;
-
-const signed char DeltaN = 8; /* Max amount of succesor moves 
-                                 of a single square from any postion
-                                 on any size board. */
-const Vector Deltas[DeltaN] = {
-    {-2, 1}, {-2,-1}, {-1,-2}, { 1,-2}, 
-    { 2,-1}, { 2, 1}, { 1, 2}, {-1, 2}
-}; /* Possible moves a knight can make in vector space.*/
-
-typedef struct { Vector nodes[DeltaN]; short length; } NodeList;
-
-// const int BoardN = 8;
-// const int BoardNxN = BoardN * BoardN;
-
-typedef struct {
-    Vector *path;
-    int BoardN;
-    int pathLength;
-    bool success;
-} Path;
-/* Functions */
-
-Path KnightsTour(Vector start, int boardN, Path tour); 
-Vector SelectedNode(NodeList nodelist, const Path *tour);
-NodeList NodeSuccessors(Vector node, const Path *Path);
-bool NodeInPath(Vector node, const Path *Path);
-int EuclideanDistance(Vector node, int BoardN);
+#include "knightsTour.h"
 
 
 Path KnightsTour(Vector start, int BoardN, Path tour) {
@@ -94,9 +57,8 @@ NodeList NodeSuccessors(Vector node, const Path *Path) {
     NodeList successors;
     unsigned short count = 0;
     for (int i = 0; i < DeltaN; i++) {
-
         Vector N = {node.x + Deltas[i].x, node.y + Deltas[i].y};
-
+        
         if ((N.x < Path->BoardN) && (N.y <  Path->BoardN) 
             && (N.x >= 0) && (N.y >= 0) && !NodeInPath(N, Path))
         {
@@ -110,8 +72,10 @@ NodeList NodeSuccessors(Vector node, const Path *Path) {
 
 bool NodeInPath(Vector node, const Path *Path) {
     /* Searches for a node a given Path and returns true if found else false */
-    for (int i = 0; i < Path->pathLength; i++) {
-        if ((Path->path[i].x == node.x) && (Path->path[i].y == node.y)) {
+    for (int i = 0; i < Path->pathLength; i++)
+    {
+        if ((Path->path[i].x == node.x) && (Path->path[i].y == node.y))
+        {
             return true;
         }
     }
@@ -126,5 +90,3 @@ int EuclideanDistance(Vector node, int BoardN) {
     int nY = node.y * 2 - center;
     return (nX * nX) + (nY * nY);
 }
-
-#endif

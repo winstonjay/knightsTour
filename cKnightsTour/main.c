@@ -18,26 +18,24 @@ int main() {
     int BoardN = 6;
     int BoardNxN = BoardN * BoardN;
     Vector start = {0,0};
+
     Path tour = { /* struct: *path, BoardN, pathLength, success; */
         (Vector*) malloc(BoardNxN * sizeof(Vector)), BoardN, 0, false }; 
-    if(tour.path == NULL)                     
-    {
+
+    if (tour.path == NULL) {
         printf("Error! memory not allocated.\n");
         return 0;
     }
+
     clock_t t0 = clock(), t1;
     tour = KnightsTour(start, BoardN, tour);
     t1 = clock() - t0;
-    if (tour.success)
-    {
+    if (tour.success) {
         printf("Success!\n");
-        for (int i = 0; i < tour.pathLength; i++)
-        {
+        for (int i = 0; i < tour.pathLength; i++) {
             printf("[%d, %d], ", tour.path[i].x,  tour.path[i].y);
         }
-    }
-    else
-    {
+    } else {
         printf("Failed!");
     }
     printf("\n%d \n", tour.pathLength);
