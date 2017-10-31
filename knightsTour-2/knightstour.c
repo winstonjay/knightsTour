@@ -46,7 +46,6 @@ void initcKnightsTour(void) {
     );
 }
 
-
 /***** Functions to return a tour from the C function. *****/
 
 /**
