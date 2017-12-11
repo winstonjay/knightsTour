@@ -1,10 +1,6 @@
+#ifndef knights_tour_h
+#define knights_tour_h
 /*
-
-knightsTour.h
-knightsTour
-
-Created by Karl Sims on 12/07/2017.
-Copyright © 2017 Karl Sims. All rights reserved.
 
 Info about the Knights Tour problem as described by wikipedia:
 
@@ -15,8 +11,8 @@ again immediately, following the same path), the tour is closed, otherwise it
 is open.
 
 */
-#ifndef knights_tour_h
-#define knights_tour_h
+
+
 
 typedef struct { signed char x; signed char y; } Vector;
 

@@ -2,6 +2,8 @@
     Module for interfacing python with C implementation of a Knights tour
     algorthm.
 
+    *** ONLY WORKS WITH Python 2.7 right now.
+
     Python Module Name:         cKnightsTour
     Python Accessible calls:    KnightsTour(x, y)
 
